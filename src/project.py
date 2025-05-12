@@ -83,6 +83,10 @@ for i in range(4):
     rb.pack()
     radio_buttons.append(rb)
 
+next_button = tk.Button(window, text="Next", command=next_question)
+next_button.pack()
+
+
 window = tk.Tk()
 window.title("Digital Arts Trivia Quiz")
 window.geometry("600x400")
