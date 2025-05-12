@@ -16,6 +16,10 @@ def next_question():
         window.quit()
     else:
         load_question()
+    
+    if selected == -1:
+      messagebox.showwarning("Warning", "Please select an answer before proceeding.")
+    return
 
 questions = [
     {
