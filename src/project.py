@@ -76,6 +76,9 @@ def load_question():
         radio_buttons[i].config(text=choice, value=i)
     answer_var.set(-1)
 
+question_label = tk.Label(window, text="", font=("Arial", 14), wraplength=500, justify="left")
+question_label.pack(pady=20)
+
 answer_var = tk.IntVar()
 radio_buttons = []
 for i in range(4):
