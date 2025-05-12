@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+from PIL import Image, ImageTk
 
 current_question = 0
 score = 0
@@ -75,6 +76,13 @@ def load_question():
     for i, choice in enumerate(q["choices"]):
         radio_buttons[i].config(text=choice, value=i)
     answer_var.set(-1)
+    
+bg_image = Image.open("background.jpg")
+bg_image = bg_image.resize((600, 400), Image.Resampling.LANCZOS)
+bg_photo = ImageTk.PhotoImage(bg_image)
+
+bg_label = tk.Label(window, image=bg_photo)
+bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 question_label = tk.Label(window, text="", font=("Arial", 14), wraplength=500, justify="left")
 question_label.pack(pady=20)
