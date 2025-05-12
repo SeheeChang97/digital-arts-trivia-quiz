@@ -1,25 +1,7 @@
 import tkinter as tk
 from tkinter import messagebox
-from PIL import Image, ImageTk
-
-current_question = 0
-score = 0
-
-def next_question():
-    global current_question, score
-    selected = answer_var.get()
-    if selected == questions[current_question]["answer"]:
-        score += 1
-    current_question += 1
-    if current_question >= len(questions):
-        messagebox.showinfo("Quiz Finished", f"Your final score is {score} out of {len(questions)}.")
-        window.quit()
-    else:
-        load_question()
-    
-    if selected == -1:
-      messagebox.showwarning("Warning", "Please select an answer before proceeding.")
-    return
+from PIL import Image, ImageTk 
+from PIL import ImageFilter, ImageEnhance, ImageDraw
 
 questions = [
     {
@@ -74,6 +56,9 @@ questions = [
     }
 ]
 
+current_question = 0
+score = 0
+
 def load_question():
     q = questions[current_question]
     question_label.config(text=q["question"])
@@ -81,44 +66,57 @@ def load_question():
         radio_buttons[i].config(text=choice, value=i)
     answer_var.set(-1)
 
-bg_image = Image.open("background.jpg")
+def next_question():
+    global current_question, score
+    selected = answer_var.get()
+    if selected == questions[current_question]["answer"]:
+        score += 1
+    current_question += 1
+    if current_question >= len(questions):
+        messagebox.showinfo("Quiz Finished", f"Your final score is {score} out of {len(questions)}.")
+        window.quit()
+    else:
+        load_question()
+
+window = tk.Tk()
+window.title("Digital Arts Trivia Quiz")
+window.geometry("600x400")
+
+bg_image = Image.open("background.jpg")  
 bg_image = bg_image.resize((600, 400), Image.Resampling.LANCZOS)
 bg_photo = ImageTk.PhotoImage(bg_image)
 
 bg_label = tk.Label(window, image=bg_photo)
 bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-question_label = tk.Label(window, text="", font=("Arial", 14), wraplength=500, justify="left")
-question_label.pack(pady=20)
+question_label = tk.Label(
+    window, text="", font=("Arial", 14), wraplength=500, justify="left", bg="#ffffff", padx=10, pady=10
+)
+question_label.place(x=50, y=30)
 
-question_label.config(bg="#ffffff", padx=10, pady=10)
+answer_var = tk.IntVar()
+radio_buttons = []
+for i in range(4):
+    rb = tk.Radiobutton(
+        window, text="", variable=answer_var, value=i, font=("Arial", 12),
+        bg="#ffffff", activebackground="#f7cfe3", anchor="w"
+    )
+    rb.place(x=70, y=100 + i * 30)
+    radio_buttons.append(rb)
 
-for rb in radio_buttons:
-    rb.config(font=("Arial", 12), bg="#ffffff", activebackground="#f7cfe3", anchor="w")
-
-next_button.config(
+next_button = tk.Button(
+    window,
+    text="Next",
+    command=next_question,
     font=("Arial", 12, "bold"),
-    bg="#f7cfe3",
+    bg="#f7cfe3",  
     activebackground="#f4b9d7",
     relief="raised",
     borderwidth=2,
     padx=10,
     pady=5
 )
+next_button.place(x=250, y=270)
 
-answer_var = tk.IntVar()
-radio_buttons = []
-for i in range(4):
-    rb = tk.Radiobutton(window, text="", variable=answer_var, value=i)
-    rb.pack()
-    radio_buttons.append(rb)
-
-next_button = tk.Button(window, text="Next", command=next_question)
-next_button.pack()
-
-
-window = tk.Tk()
-window.title("Digital Arts Trivia Quiz")
-window.geometry("600x400")
-
+load_question()
 window.mainloop()
