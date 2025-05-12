@@ -15,7 +15,7 @@ def next_question():
         window.quit()
     else:
         load_question()
-        
+
 questions = [
     {
         "question": "Which tool in Photoshop is used to remove blemishes and imperfections?",
@@ -75,6 +75,13 @@ def load_question():
     for i, choice in enumerate(q["choices"]):
         radio_buttons[i].config(text=choice, value=i)
     answer_var.set(-1)
+
+answer_var = tk.IntVar()
+radio_buttons = []
+for i in range(4):
+    rb = tk.Radiobutton(window, text="", variable=answer_var, value=i)
+    rb.pack()
+    radio_buttons.append(rb)
 
 window = tk.Tk()
 window.title("Digital Arts Trivia Quiz")
