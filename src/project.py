@@ -1,5 +1,21 @@
 import tkinter as tk
+from tkinter import messagebox
 
+current_question = 0
+score = 0
+
+def next_question():
+    global current_question, score
+    selected = answer_var.get()
+    if selected == questions[current_question]["answer"]:
+        score += 1
+    current_question += 1
+    if current_question >= len(questions):
+        messagebox.showinfo("Quiz Finished", f"Your final score is {score} out of {len(questions)}.")
+        window.quit()
+    else:
+        load_question()
+        
 questions = [
     {
         "question": "Which tool in Photoshop is used to remove blemishes and imperfections?",
