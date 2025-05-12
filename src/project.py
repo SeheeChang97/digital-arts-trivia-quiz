@@ -76,7 +76,7 @@ def load_question():
     for i, choice in enumerate(q["choices"]):
         radio_buttons[i].config(text=choice, value=i)
     answer_var.set(-1)
-    
+
 bg_image = Image.open("background.jpg")
 bg_image = bg_image.resize((600, 400), Image.Resampling.LANCZOS)
 bg_photo = ImageTk.PhotoImage(bg_image)
@@ -86,6 +86,21 @@ bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 question_label = tk.Label(window, text="", font=("Arial", 14), wraplength=500, justify="left")
 question_label.pack(pady=20)
+
+question_label.config(bg="#ffffff", padx=10, pady=10)
+
+for rb in radio_buttons:
+    rb.config(font=("Arial", 12), bg="#ffffff", activebackground="#f7cfe3", anchor="w")
+
+next_button.config(
+    font=("Arial", 12, "bold"),
+    bg="#f7cfe3",
+    activebackground="#f4b9d7",
+    relief="raised",
+    borderwidth=2,
+    padx=10,
+    pady=5
+)
 
 answer_var = tk.IntVar()
 radio_buttons = []
