@@ -53,6 +53,13 @@ questions = [
     }
 ]
 
+def load_question():
+    q = questions[current_question]
+    question_label.config(text=q["question"])
+    for i, choice in enumerate(q["choices"]):
+        radio_buttons[i].config(text=choice, value=i)
+    answer_var.set(-1)
+
 window = tk.Tk()
 window.title("Digital Arts Trivia Quiz")
 window.geometry("600x400")
