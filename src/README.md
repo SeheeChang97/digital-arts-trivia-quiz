@@ -1,1 +1,0 @@
-# digital-arts-trivia-quiz

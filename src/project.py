@@ -78,45 +78,52 @@ def next_question():
     else:
         load_question()
 
-window = tk.Tk()
-window.title("Digital Arts Trivia Quiz")
-window.geometry("600x400")
+def main():
+    global window, question_label, answer_var, radio_buttons
 
-bg_image = Image.open("background.jpg")  
-bg_image = bg_image.resize((600, 400), Image.Resampling.LANCZOS)
-bg_photo = ImageTk.PhotoImage(bg_image)
+    window = tk.Tk()
+    window.title("Digital Arts Trivia Quiz")
+    window.geometry("600x400")
 
-bg_label = tk.Label(window, image=bg_photo)
-bg_label.place(x=0, y=0, relwidth=1, relheight=1)
+    bg_image = Image.open("background.jpg")  
+    bg_image = bg_image.resize((600, 400), Image.Resampling.LANCZOS)
+    bg_photo = ImageTk.PhotoImage(bg_image)
 
-question_label = tk.Label(
-    window, text="", font=("Arial", 14), wraplength=500, justify="left", bg="#ffffff", padx=10, pady=10
-)
-question_label.place(x=50, y=30)
+    bg_label = tk.Label(window, image=bg_photo)
+    bg_label.image = bg_photo
+    bg_label.place(x=0, y=0, relwidth=1, relheight=1)
 
-answer_var = tk.IntVar()
-radio_buttons = []
-for i in range(4):
-    rb = tk.Radiobutton(
-        window, text="", variable=answer_var, value=i, font=("Arial", 12),
-        bg="#ffffff", activebackground="#f7cfe3", anchor="w"
+    question_label = tk.Label(
+        window, text="", font=("Arial", 14), wraplength=500, justify="left", bg="#ffffff", padx=10, pady=10
     )
-    rb.place(x=70, y=100 + i * 30)
-    radio_buttons.append(rb)
+    question_label.place(x=50, y=30)
 
-next_button = tk.Button(
-    window,
-    text="Next",
-    command=next_question,
-    font=("Arial", 12, "bold"),
-    bg="#f7cfe3",  
-    activebackground="#f4b9d7",
-    relief="raised",
-    borderwidth=2,
-    padx=10,
-    pady=5
-)
-next_button.place(x=250, y=270)
+    answer_var = tk.IntVar()
+    radio_buttons = []
+    for i in range(4):
+        rb = tk.Radiobutton(
+            window, text="", variable=answer_var, value=i, font=("Arial", 12),
+            bg="#ffffff", activebackground="#f7cfe3", anchor="w"
+        )
+        rb.place(x=70, y=100 + i * 30)
+        radio_buttons.append(rb)
 
-load_question()
-window.mainloop()
+    next_button = tk.Button(
+        window,
+        text="Next",
+        command=next_question,
+        font=("Arial", 12, "bold"),
+        bg="#f7cfe3",  
+        activebackground="#f4b9d7",
+        relief="raised",
+        borderwidth=2,
+        padx=10,
+        pady=5
+    )
+    next_button.place(x=250, y=270)
+
+    load_question()
+    window.mainloop()
+
+if __name__ == "__main__":
+    main()
